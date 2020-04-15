@@ -1,0 +1,14 @@
+---
+- name: restart newrelic-sysmond
+  become: yes
+  service:
+    name: newrelic-sysmond
+    state: restarted
+    enabled: yes
+
+- name: restart newrelic-infra
+  become: yes
+  service:
+    name: newrelic-infra
+    state: restarted
+    enabled: yes

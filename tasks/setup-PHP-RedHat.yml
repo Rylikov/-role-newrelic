@@ -1,0 +1,14 @@
+---
+- name: Add the New Relic PHP package repo to yum
+  become: yes
+  yum:
+    name: http://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm
+    state: present
+
+- name: Install New Relic PHP with yum
+  become: yes
+  yum:
+    name: newrelic-php5
+    state: present
+
+- include_tasks: setup-PHP.yml

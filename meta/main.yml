@@ -1,0 +1,21 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Aplyca
+  description: NewRelic Debian/Ubuntu/RedHat/CentOS.
+  company: "Aplyca SAS"
+  license: "license (BSD, MIT)"
+  min_ansible_version: 1.4
+  platforms:
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: CentOS
+    versions:
+    - all
+  categories:
+    - web

@@ -1,0 +1,3 @@
+---
+newrelic:
+  install_dir: /etc/newrelic

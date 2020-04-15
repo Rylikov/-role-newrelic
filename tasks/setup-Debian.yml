@@ -1,0 +1,31 @@
+---
+- name: Add the New Relic package repo to apt
+  become: yes
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb [arch=amd64] https://download.newrelic.com/infrastructure_agent/linux/apt {{ ansible_distribution_release }} main"
+    - "deb http://apt.newrelic.com/debian/ newrelic non-free"
+
+- name: Add an Apt signing key for New relic repo
+  become: yes
+  apt_key:
+    id: "{{ item.id }}"
+    url: "{{ item.path }}"
+    state: present
+  with_items:
+    - path: https://download.newrelic.com/548C16BF.gpg
+      id: 548C16BF
+    - path: https://download.newrelic.com/infrastructure_agent/gpg/newrelic-infra.gpg
+      id: ""
+
+- name: Install NewRelic with apt
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: present
+    force: yes
+  with_items:
+    - "newrelic-sysmond"
+    - "newrelic-infra"

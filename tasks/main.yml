@@ -1,0 +1,12 @@
+---
+- debug: var=newrelic verbosity=1
+  tags: vars
+
+- include_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include_tasks: post-setup.yml
+  when: newrelic.license_key

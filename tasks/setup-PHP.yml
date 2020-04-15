@@ -1,0 +1,11 @@
+---
+- name: Config New Relic for PHP
+  become: yes
+  lineinfile:
+    dest: "{{ newrelic.php_conf_dir }}/newrelic.ini"
+    regexp: '^;?newrelic.{{ item.key }} = '
+    line: 'newrelic.{{ item.key }} = "{{ item.value }}"'
+  with_dict:
+    appname: "{{ newrelic.appname }}"
+    license: "{{ newrelic.license_key }}"
+  no_log: True

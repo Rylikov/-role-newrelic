@@ -1,0 +1,27 @@
+---
+- command: php --version
+  register: php_present
+  ignore_errors: True
+  changed_when: False
+
+- name: Add New Relic license key
+  become: yes
+  shell: "nrsysmond-config --set license_key={{ newrelic.license_key }}"
+  notify:
+    - restart newrelic-sysmond
+    - restart newrelic-infra
+
+- name: Add New Relic Infra license key
+  become: yes
+  lineinfile:
+    dest: "/etc/newrelic-infra.yml"
+    regexp: "^license_key: "
+    line: "license_key: {{ newrelic.license_key }}"
+    create: yes
+  no_log: True
+
+- include_tasks: setup-PHP-Debian.yml
+  when: ansible_os_family == 'Debian' and php_present|success
+
+- include_tasks: setup-PHP-RedHat.yml
+  when: ansible_os_family == 'RedHat' and php_present|success

@@ -1,0 +1,17 @@
+---
+- name: Install New Relic for PHP with apt
+  become: yes
+  apt:
+    name: newrelic-php5
+    state: present
+    force: yes
+  when: php_present|success
+
+- name: Enabling NewRelic module config in PHP conf
+  become: yes
+  command: "{{ newrelic.php_command_prefix }}enmod newrelic"
+  notify: reload apache
+  changed_when: False
+  when: apache.service is defined
+
+- include_tasks: setup-PHP.yml
