@@ -23,9 +23,7 @@ dependencies:
   - { role: Aplyca.NewRelic }
 ```
 
-## Role Variables
 
-See default variables: https://github.com/Aplyca/ansible-role-newrelic/blob/master/defaults/main.yml
 
 ## Dependencies
 
